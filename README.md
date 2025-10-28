@@ -17,7 +17,7 @@ but simplified for local demonstration with **Prometheus metrics** and **Grafana
 
 ## 🧩 Architecture Overview
 
-```mermaid
+```markdown
 flowchart TD
     A[Autoscaler (Go)] -->|Expose /metrics| B[Prometheus]
     B -->|Scrape every 5s| A
