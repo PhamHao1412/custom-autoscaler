@@ -1,0 +1,13 @@
+# Custom Autoscaler configuration
+autoscaler:
+  interval_seconds: 5
+  scale_up_cpu: 80
+  scale_down_cpu: 30
+  scale_up_mem: 85
+  scale_down_mem: 40
+  scale_up_resp_time: 400    # ms
+  scale_down_resp_time: 150  # ms
+  min_nodes: 1
+  max_nodes: 5
+  provider: mock
+  prometheus_port: 2112
