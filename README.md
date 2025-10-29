@@ -27,7 +27,7 @@ flowchart TD
 
 ---
 
-## 🏗 Project Structur“pe
+## 🏗 Project Structure
 
 ```
 custom-autoscaler/
