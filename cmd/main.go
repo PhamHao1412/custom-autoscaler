@@ -8,14 +8,12 @@ import (
 	"fmt"
 	"log"
 	"time"
-)
 
-const (
-	configPath = "internal/app/config.yaml"
+	"github.com/viebiz/lit/env"
 )
 
 func main() {
-	cfg, err := app.LoadConfig(configPath)
+	cfg, err := env.ReadAppConfig[app.Config]()
 	if err != nil {
 		log.Fatalf("❌ Failed to load config: %v", err)
 	}

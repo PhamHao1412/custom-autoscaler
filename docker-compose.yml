@@ -46,8 +46,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_USERS_ALLOW_SIGN_UP=false
     volumes:
-      - ./grafana/dashboards:/var/lib/grafana/dashboards
-      - ./grafana/provisioning:/etc/grafana/provisioning
+      - grafana-data:/var/lib/grafana
     depends_on:
       - prometheus
     networks:
@@ -56,3 +55,5 @@ services:
 networks:
   monitoring:
     driver: bridge
+volumes:
+  grafana-data:

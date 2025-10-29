@@ -19,15 +19,15 @@ but simplified for local demonstration with **Prometheus metrics** and **Grafana
 
 ```markdown
 flowchart TD
-    A[Autoscaler (Go)] -->|Expose /metrics| B[Prometheus]
-    B -->|Scrape every 5s| A
-    B --> C[Grafana Dashboard]
-    A -->|REST API| D[User / External Tools]
+    A["Autoscaler (Go)"] -->|"Expose /metrics"| B["Prometheus"]
+    B -->|"Scrape every 5s"| A
+    B --> C["Grafana Dashboard"]
+    A -->|"REST API"| D["User / External Tools"]
 ```
 
 ---
 
-## 🏗 Project Structure
+## 🏗 Project Structur“pe
 
 ```
 custom-autoscaler/
@@ -46,6 +46,8 @@ custom-autoscaler/
 ├── Dockerfile
 ├── Makefile
 └── README.md
+└── .env
+
 ```
 
 ---
@@ -58,22 +60,20 @@ custom-autoscaler/
 
 ---
 
-## ⚙️ Configuration Example
+## ⚙️ .env example
 
-```yaml
-autoscaler:
-  scale_up_cpu: 80
-  scale_down_cpu: 30
-  scale_up_mem: 85
-  scale_down_mem: 40
-  scale_up_resp_time: 400
-  scale_down_resp_time: 150
-  min_nodes: 1
-  max_nodes: 10
-  interval_seconds: 5
-  cooldown_seconds: 20
-  prometheus_port: 2112
-  provider: mock
+```.env
+AUTOSCALER.INTERVAL_SECONDS=5
+AUTOSCALER.SCALE_UP_CPU=80
+AUTOSCALER.SCALE_DOWN_CPU=30
+AUTOSCALER.SCALE_UP_MEM=85
+AUTOSCALER.SCALE_DOWN_MEM=40
+AUTOSCALER.SCALE_UP_RESP_TIME=400 # ms
+AUTOSCALER.SCALE_DOWN_RESP_TIME=150 # ms
+AUTOSCALER.MIN_NODES=1
+AUTOSCALER.MAX_NODES=5
+AUTOSCALER.PROVIDER=mock
+AUTOSCALER.PROMETHEUS_PORT=2112
 ```
 
 ---
@@ -94,43 +94,67 @@ autoscaler:
 2. Prometheus scrapes the metrics and Grafana visualizes them in real-time.
 
 ---
-
 ## 🖥 Running Locally
 
 ### **Prerequisites**
-- Go ≥ **1.22**
-- **Docker** and **Docker Compose** installed
+- **Docker** & **Docker Compose** installed
+- Ports **2112**, **9090**, and **3000** must be free
 
 ---
 
-### 🚀 **Option 1 — Run Autoscaler locally (Go only)**
-
-```bash
-make run
-```
-Runs the autoscaler directly using Go (no Docker).  
-Metrics are available at:  
-[http://localhost:2112/metrics](http://localhost:2112/metrics)
-
----
-
-### 🐳 **Option 2 — Run full monitoring stack (Docker Compose)**
+### 🐳 **Run the Monitoring Stack**
 
 ```bash
 make up
 ```
-Launches the **full stack** including:
-- 🧠 **Custom Autoscaler** (Go service)
-- 📊 **Prometheus** (metrics collection)
-- 📈 **Grafana** (visualization)
 
-Once running, access:
+This command launches the full monitoring environment, including:
+- 🧠 **Custom Autoscaler** (Go service)
+- 📊 **Prometheus** (metrics collector)
+- 📈 **Grafana** (metrics visualization)
+
+Once everything is up, you can access:
 
 | Service | URL | Description |
 |----------|-----|-------------|
-| Autoscaler | [http://localhost:2112/metrics](http://localhost:2112/metrics) | Prometheus metrics |
-| Prometheus | [http://localhost:9090](http://localhost:9090) | Query and inspect metrics |
-| Grafana | [http://localhost:3000](http://localhost:3000) | Dashboard *(login: admin / admin)* |
+| Autoscaler | [http://localhost:2112/metrics](http://localhost:2112/metrics) | Exposes Prometheus metrics |
+| Prometheus | [http://localhost:9090](http://localhost:9090) | Explore & query raw metrics |
+| Grafana | [http://localhost:3000](http://localhost:3000) | Dashboard UI *(login: admin / admin)* |
+
+---
+
+### 📈 **Setup Grafana Dashboards**
+
+Once Grafana is running:
+
+1. **Login** to Grafana at [http://localhost:3000](http://localhost:3000)  
+   → Default credentials: `admin / admin`
+
+2. **Add Prometheus as a Data Source**
+    - Go to **⚙️ → Data Sources → Add data source**
+    - Choose **Prometheus**
+    - In the “URL” field, enter:
+      ```
+      http://prometheus:9090
+      ```
+    - Click **Save & Test**
+
+3. **Import Dashboard**
+    - Go to **+ → Import**
+    - Upload or paste the contents of your local file:
+      ```
+      grafana_dashboard.json
+      ```
+    - Select **Prometheus** as the data source, then click **Import**
+
+4. **Refresh Dashboards**
+    - After import, open each dashboard and click **Refresh 🔄**
+    - You should start seeing real-time metrics from the autoscaler:
+        - CPU usage
+        - Memory usage
+        - Response time
+        - Node count
+        - Scaling actions
 
 ---
 
@@ -138,30 +162,16 @@ Once running, access:
 
 | Command | Description |
 |----------|-------------|
-| `make build` | Build Go binary locally |
 | `make docker-build` | Build Docker image manually |
-| `make logs` | View container logs |
+| `make logs` | View live container logs |
 | `make down` | Stop all running containers |
-| `make clean` | Remove all containers, volumes, and build artifacts |
+| `make clean` | Remove containers, networks, and volumes |
 
 ---
 
-## 📊 Metrics Exposed
-
-| Metric | Description | Type |
-|---------|-------------|------|
-| `autoscaler_cpu_usage_percent` | Current CPU usage (%) | Gauge |
-| `autoscaler_memory_usage_percent` | Current memory usage (%) | Gauge |
-| `autoscaler_request_response_time_ms` | Average response time (ms) | Gauge |
-| `autoscaler_node_count` | Number of active nodes | Gauge |
-| `autoscaler_last_action` | Scale-up / scale-down / no-op | GaugeVec |
-
----
-
-## 📦 Example Output
+### 📦 **Example Output**
 
 ```
-[ENGINE] Trigger scale-up | CPU=82.33% | MEM=69.10% | RT=435.22ms | Nodes=3
 [AUTOSCALER] CPU=82.33 | MEM=69.10 | RT=435.22 | Nodes=3 | Action=scale-up
 📊 Prometheus metrics server running at http://localhost:2112/metrics
 ```

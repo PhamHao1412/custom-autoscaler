@@ -36,7 +36,7 @@ logs:
 # Clean up everything (containers, volumes, binary)
 clean:
 	@echo "🧹 Cleaning up containers, volumes, and binaries..."
-	docker-compose down -v
+	docker compose down --remove-orphans
 	rm -rf bin
 
 .PHONY: build run docker-build up down logs clean
