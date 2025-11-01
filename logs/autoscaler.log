@@ -1,0 +1,80 @@
+2025/11/01 06:21:48.590605 logger.go:31: 🪵 Logger initialized — writing to /tmp/logs/autoscaler.log
+2025/11/01 06:21:48.590935 main.go:22: ✅ Config loaded:
+2025/11/01 06:21:48.591042 main.go:23:   Provider: mock
+2025/11/01 06:21:48.591154 main.go:24:   Interval: 5s
+2025/11/01 06:21:48.591195 main.go:25:   Cooldown: 0s
+2025/11/01 06:21:48.591245 main.go:26:   Prometheus port: 2112
+2025/11/01 06:21:48.591292 main.go:27: 🚀 Autoscaler initialized and ready.
+2025/11/01 06:21:48.591478 prometheus.go:42: 📊 Prometheus metrics server running at http://localhost:2112/metrics
+2025/11/01 06:21:49.593326 collector.go:49: [METRIC] CPU=10.67% | Mem=12.52% | RespTime=633.67ms
+2025/11/01 06:21:49.593969 scheduler.go:23: [AUTOSCALER] CPU=10.67% | Nodes=1 | Action=scale-up | Reason=CPU 10.67% / Mem 12.52% / RT 633.67ms > (80.00% | 85.00% | 400.00ms)
+2025/11/01 06:21:49.594449 mockprovider.go:23: [CLOUD] Added node-2 (total=2)
+2025/11/01 06:21:55.601386 collector.go:49: [METRIC] CPU=0.17% | Mem=12.66% | RespTime=417.94ms
+2025/11/01 06:21:55.601732 scheduler.go:23: [AUTOSCALER] CPU=0.17% | Nodes=2 | Action=scale-up | Reason=CPU 0.17% / Mem 12.66% / RT 417.94ms > (80.00% | 85.00% | 400.00ms)
+2025/11/01 06:21:55.602059 mockprovider.go:23: [CLOUD] Added node-3 (total=3)
+2025/11/01 06:22:01.610143 collector.go:49: [METRIC] CPU=0.58% | Mem=12.91% | RespTime=263.12ms
+2025/11/01 06:22:01.610526 scheduler.go:23: [AUTOSCALER] CPU=0.58% | Nodes=3 | Action=no-op | Reason=CPU 0.58% / Mem 12.91% / RT 263.12ms within normal range
+2025/11/01 06:22:07.623609 collector.go:49: [METRIC] CPU=0.08% | Mem=12.92% | RespTime=364.65ms
+2025/11/01 06:22:07.624233 scheduler.go:23: [AUTOSCALER] CPU=0.08% | Nodes=3 | Action=no-op | Reason=CPU 0.08% / Mem 12.92% / RT 364.65ms within normal range
+2025/11/01 06:22:13.634033 collector.go:49: [METRIC] CPU=0.08% | Mem=12.92% | RespTime=791.29ms
+2025/11/01 06:22:13.634805 scheduler.go:23: [AUTOSCALER] CPU=0.08% | Nodes=3 | Action=scale-up | Reason=CPU 0.08% / Mem 12.92% / RT 791.29ms > (80.00% | 85.00% | 400.00ms)
+2025/11/01 06:22:13.635325 mockprovider.go:23: [CLOUD] Added node-4 (total=4)
+2025/11/01 06:22:19.639341 collector.go:49: [METRIC] CPU=1.09% | Mem=12.94% | RespTime=315.20ms
+2025/11/01 06:22:19.640029 scheduler.go:23: [AUTOSCALER] CPU=1.09% | Nodes=4 | Action=no-op | Reason=CPU 1.09% / Mem 12.94% / RT 315.20ms within normal range
+2025/11/01 06:22:25.645650 collector.go:49: [METRIC] CPU=0.00% | Mem=13.02% | RespTime=881.58ms
+2025/11/01 06:22:25.646174 scheduler.go:23: [AUTOSCALER] CPU=0.00% | Nodes=4 | Action=scale-up | Reason=CPU 0.00% / Mem 13.02% / RT 881.58ms > (80.00% | 85.00% | 400.00ms)
+2025/11/01 06:22:25.646555 mockprovider.go:23: [CLOUD] Added node-5 (total=5)
+2025/11/01 06:22:31.653544 collector.go:49: [METRIC] CPU=0.42% | Mem=13.08% | RespTime=322.76ms
+2025/11/01 06:22:31.654272 scheduler.go:23: [AUTOSCALER] CPU=0.42% | Nodes=5 | Action=no-op | Reason=CPU 0.42% / Mem 13.08% / RT 322.76ms within normal range
+2025/11/01 06:22:37.664290 collector.go:49: [METRIC] CPU=0.41% | Mem=13.12% | RespTime=326.50ms
+2025/11/01 06:22:37.664581 scheduler.go:23: [AUTOSCALER] CPU=0.41% | Nodes=5 | Action=no-op | Reason=CPU 0.41% / Mem 13.12% / RT 326.50ms within normal range
+2025/11/01 06:22:43.671009 collector.go:49: [METRIC] CPU=0.17% | Mem=13.36% | RespTime=606.08ms
+2025/11/01 06:22:43.671630 scheduler.go:23: [AUTOSCALER] CPU=0.17% | Nodes=5 | Action=no-op | Reason=CPU 0.17% / Mem 13.36% / RT 606.08ms within normal range
+2025/11/01 06:22:49.676749 collector.go:49: [METRIC] CPU=1.51% | Mem=13.38% | RespTime=272.42ms
+2025/11/01 06:22:49.677208 scheduler.go:23: [AUTOSCALER] CPU=1.51% | Nodes=5 | Action=no-op | Reason=CPU 1.51% / Mem 13.38% / RT 272.42ms within normal range
+2025/11/01 06:22:55.687579 collector.go:49: [METRIC] CPU=0.17% | Mem=13.39% | RespTime=102.46ms
+2025/11/01 06:22:55.688250 scheduler.go:23: [AUTOSCALER] CPU=0.17% | Nodes=5 | Action=scale-down | Reason=CPU 0.17% / Mem 13.39% / RT 102.46ms < (30.00% | 40.00% | 150.00ms)
+2025/11/01 06:22:55.688918 mockprovider.go:33: [CLOUD] Removed node-5 (total=4)
+2025/11/01 06:23:01.697759 collector.go:49: [METRIC] CPU=0.42% | Mem=13.33% | RespTime=581.05ms
+2025/11/01 06:23:01.699110 scheduler.go:23: [AUTOSCALER] CPU=0.42% | Nodes=4 | Action=scale-up | Reason=CPU 0.42% / Mem 13.33% / RT 581.05ms > (80.00% | 85.00% | 400.00ms)
+2025/11/01 06:23:01.699955 mockprovider.go:23: [CLOUD] Added node-5 (total=5)
+2025/11/01 06:23:07.708109 collector.go:49: [METRIC] CPU=0.08% | Mem=13.33% | RespTime=752.17ms
+2025/11/01 06:23:07.708441 scheduler.go:23: [AUTOSCALER] CPU=0.08% | Nodes=5 | Action=no-op | Reason=CPU 0.08% / Mem 13.33% / RT 752.17ms within normal range
+2025/11/01 06:23:13.713234 collector.go:49: [METRIC] CPU=0.17% | Mem=13.39% | RespTime=632.17ms
+2025/11/01 06:23:13.713809 scheduler.go:23: [AUTOSCALER] CPU=0.17% | Nodes=5 | Action=no-op | Reason=CPU 0.17% / Mem 13.39% / RT 632.17ms within normal range
+2025/11/01 06:23:19.723602 collector.go:49: [METRIC] CPU=1.25% | Mem=13.38% | RespTime=620.74ms
+2025/11/01 06:23:19.724091 scheduler.go:23: [AUTOSCALER] CPU=1.25% | Nodes=5 | Action=no-op | Reason=CPU 1.25% / Mem 13.38% / RT 620.74ms within normal range
+2025/11/01 06:23:25.731848 collector.go:49: [METRIC] CPU=0.25% | Mem=13.40% | RespTime=214.83ms
+2025/11/01 06:23:25.732337 scheduler.go:23: [AUTOSCALER] CPU=0.25% | Nodes=5 | Action=no-op | Reason=CPU 0.25% / Mem 13.40% / RT 214.83ms within normal range
+2025/11/01 06:23:31.737980 collector.go:49: [METRIC] CPU=0.50% | Mem=13.38% | RespTime=868.57ms
+2025/11/01 06:23:31.738175 scheduler.go:23: [AUTOSCALER] CPU=0.50% | Nodes=5 | Action=no-op | Reason=CPU 0.50% / Mem 13.38% / RT 868.57ms within normal range
+2025/11/01 06:23:37.744508 collector.go:49: [METRIC] CPU=0.25% | Mem=13.40% | RespTime=493.22ms
+2025/11/01 06:23:37.745007 scheduler.go:23: [AUTOSCALER] CPU=0.25% | Nodes=5 | Action=no-op | Reason=CPU 0.25% / Mem 13.40% / RT 493.22ms within normal range
+2025/11/01 06:23:43.756998 collector.go:49: [METRIC] CPU=0.08% | Mem=13.51% | RespTime=600.47ms
+2025/11/01 06:23:43.757691 scheduler.go:23: [AUTOSCALER] CPU=0.08% | Nodes=5 | Action=no-op | Reason=CPU 0.08% / Mem 13.51% / RT 600.47ms within normal range
+2025/11/01 06:23:49.762436 collector.go:49: [METRIC] CPU=1.76% | Mem=13.47% | RespTime=83.90ms
+2025/11/01 06:23:49.763032 scheduler.go:23: [AUTOSCALER] CPU=1.76% | Nodes=5 | Action=scale-down | Reason=CPU 1.76% / Mem 13.47% / RT 83.90ms < (30.00% | 40.00% | 150.00ms)
+2025/11/01 06:23:49.763392 mockprovider.go:33: [CLOUD] Removed node-5 (total=4)
+2025/11/01 06:23:55.772396 collector.go:49: [METRIC] CPU=0.17% | Mem=13.44% | RespTime=707.83ms
+2025/11/01 06:23:55.772961 scheduler.go:23: [AUTOSCALER] CPU=0.17% | Nodes=4 | Action=scale-up | Reason=CPU 0.17% / Mem 13.44% / RT 707.83ms > (80.00% | 85.00% | 400.00ms)
+2025/11/01 06:23:55.773323 mockprovider.go:23: [CLOUD] Added node-5 (total=5)
+2025/11/01 06:24:01.781180 collector.go:49: [METRIC] CPU=0.50% | Mem=13.42% | RespTime=460.66ms
+2025/11/01 06:24:01.781346 scheduler.go:23: [AUTOSCALER] CPU=0.50% | Nodes=5 | Action=no-op | Reason=CPU 0.50% / Mem 13.42% / RT 460.66ms within normal range
+2025/11/01 06:24:07.783780 collector.go:49: [METRIC] CPU=0.17% | Mem=13.40% | RespTime=88.07ms
+2025/11/01 06:24:07.784461 scheduler.go:23: [AUTOSCALER] CPU=0.17% | Nodes=5 | Action=scale-down | Reason=CPU 0.17% / Mem 13.40% / RT 88.07ms < (30.00% | 40.00% | 150.00ms)
+2025/11/01 06:24:07.785116 mockprovider.go:33: [CLOUD] Removed node-5 (total=4)
+2025/11/01 06:24:13.795584 collector.go:49: [METRIC] CPU=0.17% | Mem=13.46% | RespTime=361.05ms
+2025/11/01 06:24:13.796292 scheduler.go:23: [AUTOSCALER] CPU=0.17% | Nodes=4 | Action=no-op | Reason=CPU 0.17% / Mem 13.46% / RT 361.05ms within normal range
+2025/11/01 06:24:19.807968 collector.go:49: [METRIC] CPU=1.00% | Mem=13.52% | RespTime=546.32ms
+2025/11/01 06:24:19.808763 scheduler.go:23: [AUTOSCALER] CPU=1.00% | Nodes=4 | Action=scale-up | Reason=CPU 1.00% / Mem 13.52% / RT 546.32ms > (80.00% | 85.00% | 400.00ms)
+2025/11/01 06:24:19.809417 mockprovider.go:23: [CLOUD] Added node-5 (total=5)
+2025/11/01 06:24:25.818506 collector.go:49: [METRIC] CPU=0.08% | Mem=13.52% | RespTime=567.92ms
+2025/11/01 06:24:25.819060 scheduler.go:23: [AUTOSCALER] CPU=0.08% | Nodes=5 | Action=no-op | Reason=CPU 0.08% / Mem 13.52% / RT 567.92ms within normal range
+2025/11/01 06:24:31.828039 collector.go:49: [METRIC] CPU=0.33% | Mem=13.47% | RespTime=329.30ms
+2025/11/01 06:24:31.828268 scheduler.go:23: [AUTOSCALER] CPU=0.33% | Nodes=5 | Action=no-op | Reason=CPU 0.33% / Mem 13.47% / RT 329.30ms within normal range
+2025/11/01 06:24:37.832315 collector.go:49: [METRIC] CPU=0.17% | Mem=13.49% | RespTime=770.72ms
+2025/11/01 06:24:37.832783 scheduler.go:23: [AUTOSCALER] CPU=0.17% | Nodes=5 | Action=no-op | Reason=CPU 0.17% / Mem 13.49% / RT 770.72ms within normal range
+2025/11/01 06:24:43.838469 collector.go:49: [METRIC] CPU=0.25% | Mem=13.53% | RespTime=763.07ms
+2025/11/01 06:24:43.838885 scheduler.go:23: [AUTOSCALER] CPU=0.25% | Nodes=5 | Action=no-op | Reason=CPU 0.25% / Mem 13.53% / RT 763.07ms within normal range
+2025/11/01 06:24:49.852561 collector.go:49: [METRIC] CPU=1.17% | Mem=13.63% | RespTime=181.04ms
+2025/11/01 06:24:49.853285 scheduler.go:23: [AUTOSCALER] CPU=1.17% | Nodes=5 | Action=no-op | Reason=CPU 1.17% / Mem 13.63% / RT 181.04ms within normal range

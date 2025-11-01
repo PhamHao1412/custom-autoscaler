@@ -2,6 +2,7 @@ package metrics
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -38,7 +39,7 @@ func InitPrometheus(port int) {
 
 	go func() {
 		addr := fmt.Sprintf(":%d", port)
-		fmt.Printf("📊 Prometheus metrics server running at http://localhost%s/metrics\n", addr)
+		log.Printf("📊 Prometheus metrics server running at http://localhost%s/metrics\n", addr)
 		if err := http.ListenAndServe(addr, nil); err != nil {
 			fmt.Printf("❌ metrics server error: %v\n", err)
 		}

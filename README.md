@@ -54,9 +54,12 @@ custom-autoscaler/
 
 ## 📊 Grafana Dashboard Preview
 
-![Grafana Dashboard Screenshot](./docs/image/grafana_dashboard.png)
 
 > The dashboard visualizes live metrics for **CPU Usage**, **Memory Usage**, **Response Time**, and **Node Count**.
+![Grafana Dashboard Screenshot](./docs/image/grafana_dashboard.png)
+
+> The Loki panel shows logs of scaling actions taken by the autoscaler.
+![Loki Grafana Screenshot](./docs/image/loki.png)
 
 ---
 

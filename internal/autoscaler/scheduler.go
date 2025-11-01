@@ -4,6 +4,7 @@ import (
 	"custom-autoscaler/internal/cloud"
 	"custom-autoscaler/internal/metrics"
 	"fmt"
+	"log"
 	"time"
 )
 
@@ -19,11 +20,11 @@ func StartScheduler(provider cloud.Provider, engine DecisionEngine, interval tim
 		metrics.MemoryUsageGauge.Set(m.MemoryUsage)
 		metrics.ResponseTimeGauge.Set(m.ResponseTimeMS)
 		action, reason := engine.Evaluate(m, len(nodes))
-		fmt.Printf("[AUTOSCALER] CPU=%.2f%% | Nodes=%d | Action=%s | Reason=%s\n",
+		log.Printf("[AUTOSCALER] CPU=%.2f%% | Nodes=%d | Action=%s | Reason=%s\n",
 			m.CPUUsage, len(nodes), action, reason)
 
 		if !cooldown.CanScale() && action != "no-op" {
-			fmt.Println("⏳ In cooldown period, skipping scale action...")
+			log.Println("⏳ In cooldown period, skipping scale action...")
 		} else {
 			switch action {
 			case "scale-up":

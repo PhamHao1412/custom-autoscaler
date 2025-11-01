@@ -1,7 +1,6 @@
 package metrics
 
 import (
-	"fmt"
 	"log"
 	"math/rand"
 	"time"
@@ -47,7 +46,7 @@ func GetCurrentMacMetrics() Metrics {
 		cpuUsage = cpuPercent[0]
 	}
 
-	fmt.Printf("[METRIC] CPU=%.2f%% | Mem=%.2f%% | RespTime=%.2fms\n",
+	log.Printf("[METRIC] CPU=%.2f%% | Mem=%.2f%% | RespTime=%.2fms\n",
 		cpuUsage, memStat.UsedPercent, responseTime)
 
 	return Metrics{

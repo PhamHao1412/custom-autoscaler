@@ -1,7 +1,7 @@
 package cloud
 
 import (
-	"fmt"
+	"log"
 	"sync"
 )
 
@@ -20,7 +20,7 @@ func (m *MockCloudProvider) AddNode(name string) error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	m.nodes = append(m.nodes, name)
-	fmt.Printf("[CLOUD] Added %s (total=%d)\n", name, len(m.nodes))
+	log.Printf("[CLOUD] Added %s (total=%d)\n", name, len(m.nodes))
 	return nil
 }
 
@@ -30,11 +30,13 @@ func (m *MockCloudProvider) RemoveNode(name string) error {
 	for i, n := range m.nodes {
 		if n == name {
 			m.nodes = append(m.nodes[:i], m.nodes[i+1:]...)
-			fmt.Printf("[CLOUD] Removed %s (total=%d)\n", name, len(m.nodes))
+			log.Printf("[CLOUD] Removed %s (total=%d)\n", name, len(m.nodes))
 			return nil
 		}
 	}
-	return fmt.Errorf("node %s not found", name)
+	log.Fatalf("node %s not found", name)
+	return nil
+
 }
 
 func (m *MockCloudProvider) ListNodes() ([]string, error) {

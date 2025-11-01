@@ -10,6 +10,10 @@ services:
     restart: unless-stopped
     ports:
       - "2112:2112" # Prometheus metrics endpoint
+    environment:
+      - LOG_PATH=/tmp/logs/autoscaler.log
+    volumes:
+      - ./logs:/tmp/logs
     networks:
       - monitoring
 
@@ -31,7 +35,35 @@ services:
       - autoscaler
     networks:
       - monitoring
+  # =====================
+  # Loki (Log Storage)
+  # =====================
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    restart: unless-stopped
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - monitoring
 
+  # =====================
+  # Promtail (Log Collector)
+  # =====================
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    restart: unless-stopped
+    depends_on:
+      - loki
+      - autoscaler
+    volumes:
+      - ./logs:/tmp/logs       # Promtail reads from /tmp/logs
+      - ./promtail/promtail-config.yml:/etc/promtail/promtail-config.yml:ro
+    command: -config.file=/etc/promtail/promtail-config.yml
+    networks:
+      - monitoring
   # =====================
   # Grafana
   # =====================

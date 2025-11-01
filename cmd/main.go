@@ -4,8 +4,8 @@ import (
 	"custom-autoscaler/internal/app"
 	"custom-autoscaler/internal/autoscaler"
 	"custom-autoscaler/internal/cloud"
+	"custom-autoscaler/internal/logging"
 	"custom-autoscaler/internal/metrics"
-	"fmt"
 	"log"
 	"time"
 
@@ -13,17 +13,18 @@ import (
 )
 
 func main() {
+	logging.InitLogger("logs/autoscaler.log")
 	cfg, err := env.ReadAppConfig[app.Config]()
 	if err != nil {
 		log.Fatalf("❌ Failed to load config: %v", err)
 	}
 
-	fmt.Println("✅ Config loaded:")
-	fmt.Printf("  Provider: %s\n", cfg.Autoscaler.Provider)
-	fmt.Printf("  Interval: %ds\n", cfg.Autoscaler.IntervalSeconds)
-	fmt.Printf("  Cooldown: %ds\n", cfg.Autoscaler.CooldownSeconds)
-	fmt.Printf("  Prometheus port: %d\n", cfg.Autoscaler.PrometheusPort)
-
+	log.Println("✅ Config loaded:")
+	log.Printf("  Provider: %s\n", cfg.Autoscaler.Provider)
+	log.Printf("  Interval: %ds\n", cfg.Autoscaler.IntervalSeconds)
+	log.Printf("  Cooldown: %ds\n", cfg.Autoscaler.CooldownSeconds)
+	log.Printf("  Prometheus port: %d\n", cfg.Autoscaler.PrometheusPort)
+	log.Println("🚀 Autoscaler initialized and ready.")
 	var provider cloud.Provider
 	switch cfg.Autoscaler.Provider {
 	case "mock":
